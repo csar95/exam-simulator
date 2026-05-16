@@ -44,7 +44,7 @@ export function HistoryScreen({
           <h1 className="display" style={{ fontSize: 'calc(56px * var(--d))' }}>
             History
           </h1>
-          <p className="muted" style={{ maxWidth: '56ch' }}>
+          <p className="muted">
             Every mock you've completed, with quick scan of score, time, and
             topic breakdown.
           </p>

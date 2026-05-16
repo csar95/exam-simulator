@@ -351,6 +351,7 @@ export function ExamScreen({
         total={questions.length}
         canReveal={config.showFeedback && !ans.revealed && ans.selected.length > 0}
         revealed={ans.revealed}
+        hasSelection={ans.selected.length > 0}
         showFeedback={config.showFeedback}
         onPrev={prev}
         onNext={next}
@@ -613,6 +614,7 @@ function ExamFooter({
   idx,
   canReveal,
   revealed,
+  hasSelection,
   showFeedback,
   onPrev,
   onNext,
@@ -624,6 +626,7 @@ function ExamFooter({
   total: number;
   canReveal: boolean;
   revealed: boolean;
+  hasSelection: boolean;
   showFeedback: boolean;
   onPrev: () => void;
   onNext: () => void;
@@ -631,8 +634,9 @@ function ExamFooter({
   onFinish: () => void;
   isLast: boolean;
 }) {
-  // When study mode is on and answer not yet revealed, the user must check first.
-  const advanceDisabled = showFeedback && !revealed;
+  // In study mode, block advance only if the user picked an answer but hasn't checked it yet.
+  // Skipping (no selection) is always allowed.
+  const advanceDisabled = showFeedback && hasSelection && !revealed;
   return (
     <div
       style={{
@@ -922,19 +926,19 @@ function NavigatorModal({
             className="row gap-16 wrap"
             style={{ fontSize: 'calc(11px * var(--d))' }}
           >
-            <span className="row gap-6 aic">
+            <span className="row gap-8 aic">
               <span style={cellSwatch({ current: true })} />
               <span className="muted">Current</span>
             </span>
-            <span className="row gap-6 aic">
+            <span className="row gap-8 aic">
               <span style={cellSwatch({ answered: true })} />
               <span className="muted">Answered</span>
             </span>
-            <span className="row gap-6 aic">
+            <span className="row gap-8 aic">
               <span style={cellSwatch({})} />
               <span className="muted">Unanswered</span>
             </span>
-            <span className="row gap-6 aic">
+            <span className="row gap-8 aic">
               <span style={cellSwatch({ flagged: true })} />
               <span className="muted">Flagged</span>
             </span>
@@ -991,7 +995,7 @@ function cellSwatch({
     border: '1px solid var(--border-strong)',
     background: 'var(--bg-elev)',
   };
-  if (current) return { ...base, background: 'var(--accent)', borderColor: 'var(--accent)' };
+  if (current) return { ...base, background: 'color-mix(in oklab, var(--accent) 55%, var(--bg))', borderColor: 'var(--accent)' };
   if (answered) return { ...base, background: 'var(--fg)', borderColor: 'var(--fg)' };
   if (flagged) return { ...base, borderColor: 'var(--warning)', borderStyle: 'dashed' };
   return base;
@@ -1032,8 +1036,9 @@ function NavCell({
     style.borderColor = 'var(--fg)';
   }
   if (current) {
-    style.outline = '2px solid var(--accent)';
-    style.outlineOffset = 2;
+    style.background = 'color-mix(in oklab, var(--accent) 55%, var(--bg))';
+    style.borderColor = 'var(--accent)';
+    style.color = 'var(--bg)';
   }
   if (flagged) {
     style.borderStyle = 'dashed';

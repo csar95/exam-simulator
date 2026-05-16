@@ -135,7 +135,7 @@ export function ReviewScreen({
           <h1 className="display" style={{ fontSize: 'calc(56px * var(--d))' }}>
             Review
           </h1>
-          <p className="muted" style={{ maxWidth: '60ch' }}>
+          <p className="muted">
             Every question you've got wrong, ranked by how often. Read
             explanations, then re-test yourself on the topics you're weakest at.
           </p>
