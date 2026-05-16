@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import json; d = json.load\\(open\\('/Users/csr95/Desktop/Mis_Documentos/Code_Python/exam-simulator/dataset.json'\\)\\); multi = [q for q in d['questions'] if len\\(q['correctOptionIds']\\) > 1]; print\\(f'Multi-correct questions: {len\\(multi\\)}'\\); print\\(f'Total questions: {len\\(d[\\\\\"questions\\\\\"]\\)}'\\); print\\(f'Total exams: {len\\(d[\\\\\"exams\\\\\"]\\)}'\\); print\\('Sample multi:', multi[0]['id'] if multi else 'none'\\)\")",
+      "Bash(python3 *)",
+      "Bash(rm -f src/App.css src/App.tsx src/index.css src/assets/hero.png src/assets/react.svg src/assets/vite.svg public/icons.svg)",
+      "Bash(rmdir src/assets)",
+      "Bash(mkdir -p src/components src/screens src/data src/types src/styles public/datasets)",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:5173/)",
+      "Bash(curl -s -o /dev/null -w \"Main bundle status: %{http_code}\\\\n\" \"http://localhost:5173/src/main.tsx\")",
+      "Bash(curl -s -o /dev/null -w \"Dataset status: %{http_code}\\\\n\" \"http://localhost:5173/src/datasets/aws-aif-c01.json\")"
+    ]
+  }
+}
